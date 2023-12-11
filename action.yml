@@ -1,6 +1,5 @@
 name: 'Clarify and Improve Issues with OpenAI GPT4'
-description: 'Uses the OpenAI GPT API to clarify new issues and provide suggestions for improvement. 
-Based on the github.com/MaurerKrisztian/issue-improver-action work. '
+description: 'Uses the OpenAI GPT API to clarify new issues and provide suggestions for improvement.'
 branding:
   icon: 'book-open'
   color: 'green'
