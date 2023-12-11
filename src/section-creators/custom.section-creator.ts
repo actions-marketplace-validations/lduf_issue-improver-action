@@ -21,7 +21,7 @@ export class CustomSectionCreator implements ISectionCreator {
     ): Promise<ISection[]> {
         const askGpt = async (prompt: string) => {
             return (
-                await openaiClient.createCompletion({
+                await openaiClient.chatCompletion({
                     model: inputs.model,
                     prompt: prompt,
                     max_tokens: inputs.maxTokens,
