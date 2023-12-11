@@ -19,14 +19,14 @@ export class CustomSectionCreator implements ISectionCreator {
         octokit: IOctokit,
         config: Partial<IConfig>,
     ): Promise<ISection[]> {
-        const askGpt = async (prompt: string) => {
+        const askGpt = async (messages: string[]) => {
             return (
-                await openaiClient.chatCompletion({
+                await openaiClient.createChatCompletion({
                     model: inputs.model,
-                    prompt: prompt,
+                    messages: messages.map((message) => ({ role: 'system', content: message })),
                     max_tokens: inputs.maxTokens,
                 })
-            ).data.choices[0].text;
+            ).data.choices[0].message.content;
         };
 
         const resultSections: ISection[] = [];
@@ -39,7 +39,7 @@ export class CustomSectionCreator implements ISectionCreator {
                 continue;
             }
             const resolvedPrompt = await this.placeholderResolver.resolve(sectionConfig.prompt);
-            const message = await askGpt(resolvedPrompt);
+            const message = await askGpt([resolvedPrompt]);
             resultSections.push({ title: sectionConfig.title, description: message, prompt: resolvedPrompt });
         }
 
